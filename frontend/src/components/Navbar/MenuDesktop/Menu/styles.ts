@@ -10,7 +10,7 @@ export const Wrapper = styled.div `
   top: ${height.navbarDesktop};
   left: 0;
   right: 0;
-  width: 100vw;
+  width: 100%;
 `
 
 export const List = styled.ul `

@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useAppDispatch } from "./redux/store";
 import Home from "./pages/Home";
+import Product from "./pages/Product";
 type Props = {};
 
 const App = (props: Props) => {
@@ -27,6 +28,7 @@ const App = (props: Props) => {
       <div style={{ marginTop: "150px" }}>
         <Routes>
           <Route index path="/" element={<Home />} />
+          <Route index path="/products/:id" element={<Product />} />
         </Routes>
       </div>
     </Router>

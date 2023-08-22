@@ -13,7 +13,7 @@ const Home = (props: Props) => {
       const res = await axios
         .get("http://localhost:8800/products")
         .then((response) => {
-          setProducts(response.data);
+          setProducts(response.data.slice(0,8));
         });
     } catch (error) {
       console.log(error);

@@ -40,9 +40,11 @@ export const fsize = {
   normalSmaller: ".875rem", //14px
   normal: "1rem", //16px
   normalLarger: "1.125rem", //18px
+  button: ".875rem",
   iconSizeSmall: "1.125rem", //18px
   iconSize: "1.375rem", //22px
   galleryTitle: "1.5rem", //24px
+  titleSmall: "1.5rem",
   title: "1.875rem", //30px
   titleLarger: "2.1875rem", //35px
   bannerTitle: "4.5rem", //72px
@@ -55,6 +57,8 @@ export const transition = {
 export const height = {
   navbarMobile: "60px",
   navbarDesktop: "90px",
+  section: "7rem",
+  sectionHalf: "3.5rem"
 };
 
 export const deviceSize = {
