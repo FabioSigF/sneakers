@@ -11,12 +11,12 @@ export const iconsList = {
   phone: "FaPhoneVolume, fa6",
   person: "IoPersonOutline",
   heart: "IoHeartOutline",
-}
+};
 
 export const ffamily = {
   title: "'Oswald', sans-serif",
   text: "'Jost', sans-serif",
-}
+};
 
 export const clr = {
   primary: "#0db22a",
@@ -33,44 +33,41 @@ export const clr = {
   darkBg: "#000",
   bodyBg: "#fff",
   grayBg: "#EDEDED",
-}
-
+};
 
 export const fsize = {
-  
   small: "0.75rem", //12px
   normalSmaller: ".875rem", //14px
   normal: "1rem", //16px
   normalLarger: "1.125rem", //18px
   iconSizeSmall: "1.125rem", //18px
   iconSize: "1.375rem", //22px
-  galleryTitle: "1.5rem",  //24px
+  galleryTitle: "1.5rem", //24px
   title: "1.875rem", //30px
   titleLarger: "2.1875rem", //35px
-  bannerTitle: "4.5rem" //72px
-
-}
+  bannerTitle: "4.5rem", //72px
+};
 
 export const transition = {
   default: "all 0.45s cubic-bezier(0.29, 0.63, 0.44, 1)",
-}
+};
 
 export const height = {
   navbarMobile: "60px",
   navbarDesktop: "90px",
-}
+};
 
 export const deviceSize = {
-  mobileS: '320px',
-  mobileM: '425px',
-  mobileL: '576px',
-  tablet: '768px',
-  laptopS: '992px',
-  laptop: '1024px',
-  laptopM: '1200px',
-  laptopL: '1440px',
-  desktop: '2560px'
-}
+  mobileS: "320px",
+  mobileM: "425px",
+  mobileL: "576px",
+  tablet: "768px",
+  laptopS: "992px",
+  laptop: "1024px",
+  laptopM: "1200px",
+  laptopL: "1440px",
+  desktop: "2560px",
+};
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -120,4 +117,4 @@ export const GlobalStyle = createGlobalStyle`
   button {
     font-family: ${ffamily.title};
   }
-`
+`;

@@ -40,8 +40,8 @@ const Hero = (props: Props) => {
   return (
     <S.Wrapper>
       <S.Grid>
-        {galleryItems.map((item) => (
-          <S.Item>
+        {galleryItems.map((item, key) => (
+          <S.Item key={key}>
             <S.ItemLink href={item.link}>
               <img src={item.image} alt={item.title} />
             </S.ItemLink>
