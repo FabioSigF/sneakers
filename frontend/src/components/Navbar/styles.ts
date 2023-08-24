@@ -8,7 +8,7 @@ export const Wrapper = styled.header`
   right: 0;
   height: ${height.navbarMobile};
   background-color: ${clr.bodyBg};
-  z-index: 999;
+  z-index: 9;
 
   display: flex;
   align-items: center;

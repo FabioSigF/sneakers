@@ -29,7 +29,7 @@ export const clr = {
   transition: "all 0.45s cubic-bezier(0.29, 0.63, 0.44, 1)",
   price: "#232630",
   reducedPrice: "#b0b0b0",
-
+  modalFadeBg: "rgba(0,0,0,0.5)",
   darkBg: "#000",
   bodyBg: "#fff",
   grayBg: "#EDEDED",

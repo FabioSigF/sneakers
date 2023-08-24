@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useAppDispatch } from "./redux/store";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
+import ModalFade from "./components/Modal/ModalFade";
 type Props = {};
 
 const App = (props: Props) => {
@@ -24,6 +25,7 @@ const App = (props: Props) => {
 
   return (
     <Router>
+      <ModalFade />
       <Navbar />
       <div style={{ marginTop: "150px" }}>
         <Routes>

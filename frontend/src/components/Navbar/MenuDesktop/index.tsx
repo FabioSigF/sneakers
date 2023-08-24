@@ -12,7 +12,8 @@ import Container from '../../Container';
 import Logo from '../../Logo';
 import ShoppingBagButton from '../../ShoppingBagButton';
 import Menu from './Menu';
-import { useAppSelector } from '../../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
+import { ModalSlice } from '../../../redux/modal/slice';
 
 type Props = {}
 
@@ -21,7 +22,12 @@ type Props = {}
 const MenuDesktop = (props: Props) => {
 
   const { tablet } = useAppSelector(rootReducer => rootReducer.deviceTypeReducer);
+  const dispatch = useAppDispatch();
 
+  const handleOpenProfile = () => {
+    dispatch(ModalSlice.actions.onToggle({}));
+    console.log("Clicou")
+  }
   return (
     <S.Wrapper>
       <Container style={{display: 'flex', flexDirection: 'column'}}>
@@ -51,7 +57,7 @@ const MenuDesktop = (props: Props) => {
                   <IoSearchOutline />
                 </a>
               </S.Item>
-              <S.Item>
+              <S.Item onClick={handleOpenProfile}>
                 <a href="#!">
                   <IoPersonOutline />
                 </a>
