@@ -13,7 +13,7 @@ import Logo from '../../Logo';
 import ShoppingBagButton from '../../ShoppingBagButton';
 import Menu from './Menu';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { ModalSlice } from '../../../redux/modal/slice';
+import { AuthenticationModalSlice } from '../../../redux/modal/authentication/slice';
 
 type Props = {}
 
@@ -25,8 +25,7 @@ const MenuDesktop = (props: Props) => {
   const dispatch = useAppDispatch();
 
   const handleOpenProfile = () => {
-    dispatch(ModalSlice.actions.onToggle({}));
-    console.log("Clicou")
+    dispatch(AuthenticationModalSlice.actions.onToggle({}));
   }
   return (
     <S.Wrapper>

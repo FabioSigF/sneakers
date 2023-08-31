@@ -15,7 +15,7 @@ export const Wrapper = styled.a `
   width: initial;
   color: ${clr.title};
   background-color: ${clr.grayBg};
-  display: inline-block;
+  display: block;
   text-align: center;
   &:hover {
     color: ${clr.whiteText};
@@ -27,8 +27,7 @@ export const Wrapper = styled.a `
     background-color: ${clr.title};
 
     &:hover {
-      color: ${clr.title};
-      background-color: ${clr.primaryLight};
+      background-color: ${clr.primary};
     }
   }
 `

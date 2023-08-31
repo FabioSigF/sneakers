@@ -5,6 +5,8 @@ import AsideButton from "./AsideButton";
 import { IoHeartOutline, IoImagesOutline } from "react-icons/io5";
 import AddButton from "./AddButton";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../redux/store";
+import { QuickViewSlice } from "../../redux/modal/quickView/slice";
 
 type Props = {
   title: string;
@@ -34,6 +36,8 @@ const CardProduct = ({
 }: Props) => {
   const [productPhotos, setProductPhotos] = useState<CardImage[]>([]);
 
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
 
   const handleProductPhotos = async () => {
@@ -56,6 +60,28 @@ const CardProduct = ({
     navigate(`/products/cart/${id}`);
   };
 
+  const handleQuickView = (
+    title: string,
+    rating: number,
+    price: number,
+    promotion: number,
+    photos: CardImage[]
+  ) => {
+    const data = {
+      title: title,
+      rating: rating,
+      price: price,
+      promotion: promotion,
+      photos: photos,
+    };
+    dispatch(
+      QuickViewSlice.actions.setStates(data)
+    );
+    dispatch(
+      QuickViewSlice.actions.onToggle({})
+    );
+  };
+
   useEffect(() => {
     handleProductPhotos();
   }, [setProductPhotos]);
@@ -65,18 +91,29 @@ const CardProduct = ({
       <S.ImageContainer>
         {productPhotos &&
           productPhotos.map((item, key) => (
-            <S.Image key={key} src={item.photo_link} alt={title} onClick={()=>handleOnClick(id)}/>
+            <S.Image
+              key={key}
+              src={item.photo_link}
+              alt={title}
+              onClick={() => handleOnClick(id)}
+            />
           ))}
         <S.SideButtons className="card_product__sideButtons">
           <AsideButton Icon={IoHeartOutline} title="Add to Wishlist" />
-          <AsideButton Icon={IoImagesOutline} title="Quick view" />
+          <div
+            onClick={() =>
+              handleQuickView(title, 5, price, promotion, productPhotos)
+            }
+          >
+            <AsideButton Icon={IoImagesOutline} title="Quick view" />
+          </div>
         </S.SideButtons>
         <S.AddButtonContainer className="card_product__addButton">
           <AddButton onClick={() => handleOnAddCart(id)} title="Quick Add" />
         </S.AddButtonContainer>
       </S.ImageContainer>
       <S.Description>
-        <S.Title onClick={()=>handleOnClick(id)}>
+        <S.Title onClick={() => handleOnClick(id)}>
           {p_type} {title}
         </S.Title>
         <S.TypeTag>{category}</S.TypeTag>

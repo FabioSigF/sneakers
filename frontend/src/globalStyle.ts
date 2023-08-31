@@ -30,12 +30,14 @@ export const clr = {
   price: "#232630",
   reducedPrice: "#b0b0b0",
   modalFadeBg: "rgba(0,0,0,0.5)",
+  lightTransparency: "rgba(255,255,255,0.3)",
   darkBg: "#000",
   bodyBg: "#fff",
   grayBg: "#EDEDED",
 };
 
 export const fsize = {
+  xsmall: "0.625rem",
   small: "0.75rem", //12px
   normalSmaller: ".875rem", //14px
   normal: "1rem", //16px
@@ -120,5 +122,33 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     font-family: ${ffamily.title};
+  }
+
+  label {
+    font-weight: 700;
+  }
+
+  form {
+    label {
+      font-size: ${fsize.small};
+    }
+  }
+  
+  input {
+    border: 1px solid ${clr.grayBg};
+    padding: 0 20px;
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: ${fsize.small};
+    font-weight: 400;
+
+    &::placeholder {
+      font-size: ${fsize.xsmall};
+      font-family: ${ffamily.text};
+      font-weight: 600;
+      color: ${clr.grayText};
+      text-transform: uppercase;
+    }
   }
 `;
