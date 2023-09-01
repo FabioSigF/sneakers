@@ -53,7 +53,7 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1rem;
-  max-width: 420px;
+  width: 280px;
 `;
 
 export const InputContainer = styled.div`

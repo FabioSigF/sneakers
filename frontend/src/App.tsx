@@ -8,6 +8,7 @@ import Product from "./pages/Product";
 import AuthenticationModal from "./components/Modal/AuthenticationModal";
 import Footer from "./components/Footer";
 import QuickViewModal from "./components/Modal/QuickViewModal";
+import Cart from "./components/Sidebar/Cart";
 
 type Props = {};
 
@@ -31,6 +32,7 @@ const App = (props: Props) => {
     <Router>
       <QuickViewModal />
       <AuthenticationModal />
+      <Cart />
       <Navbar />
       <div style={{ marginTop: "150px" }}>
         <Routes>

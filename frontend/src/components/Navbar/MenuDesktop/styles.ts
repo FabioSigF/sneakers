@@ -26,6 +26,7 @@ export const Item = styled.li <{bgPrimary?: boolean}>`
   background-color: ${props => props.bgPrimary ? clr.primaryLight : clr.grayBg};
   border-radius: 50%;
   color: ${clr.darkBg};
+  cursor: pointer;
   font-size: ${fsize.iconSize};
   
   height: 50px;

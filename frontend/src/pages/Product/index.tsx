@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import * as S from "./styles";
 import Container from "../../components/Container";
 import Button from "../../components/Button";
-import { IoStarOutline, IoStopwatchOutline } from "react-icons/io5";
+import { IoStarOutline } from "react-icons/io5";
 import { LiaStopwatchSolid, LiaShippingFastSolid } from "react-icons/lia";
 import { BsDash, BsPlus } from "react-icons/bs";
 import cardsFlag from "../../images/product/payment-icon_700x.avif";
+import { useAppDispatch } from "../../redux/store";
+import { CartSlice } from "../../redux/sidebar/cart/slice";
+
 export type Photo = {
   id: number;
   photo_link: string;
@@ -37,8 +40,9 @@ const Product = (props: Props) => {
   //Temporário até ser adicionado no DB
   const [productSize, setProductSize] = useState("35");
 
-  const [quantityCounter, setQuantityCounter] = useState(1);
+  const [productQuantity, setProductQuantity] = useState(1);
 
+  const dispatch = useAppDispatch();
   //Obter o ID do produto
   const { id } = useParams();
 
@@ -103,14 +107,31 @@ const Product = (props: Props) => {
   };
 
   const handleAddProduct = () => {
-    setQuantityCounter(quantityCounter + 1);
-  }
+    setProductQuantity(productQuantity + 1);
+  };
 
   const handleRemoveProduct = () => {
-    if(quantityCounter > 1) {
-      setQuantityCounter(quantityCounter - 1);
+    if (productQuantity > 1) {
+      setProductQuantity(productQuantity - 1);
     }
-  }
+  };
+
+  const handleAddProductToCart = () => {
+    const productData = {
+      title: `${product?.description.brand} ${product?.description.model}`,
+      price: product?.description.promotion
+        ? (
+            product.description.price -
+            (product.description.price * product.description.promotion) / 100
+          ).toFixed(2)
+        : product?.description.price,
+      size: productSize,
+      quantity: productQuantity,
+      photo: product?.photos[0],
+      id: product?.description.id,
+    };
+    dispatch(CartSlice.actions.addProduct(productData));
+  };
 
   useEffect(() => {
     getProduct();
@@ -205,8 +226,9 @@ const Product = (props: Props) => {
                 <S.ProductSize>
                   <S.SectionTitle>Tamanho</S.SectionTitle>
                   <S.SizeList>
-                    {productSizeList.map((item) => (
+                    {productSizeList.map((item, key) => (
                       <S.SizeItem
+                        key={key}
                         className={` 
                         ${item.avaible ? "" : "unavaible"}
                         ${productSize === item.size.toString() ? "active" : ""}
@@ -227,10 +249,13 @@ const Product = (props: Props) => {
                   <S.ButtonsRow>
                     <S.Quantity>
                       <BsDash onClick={handleRemoveProduct} />
-                      <S.QuantityCounter>{quantityCounter}</S.QuantityCounter>
-                      <BsPlus onClick={handleAddProduct}/>
+                      <S.QuantityCounter>{productQuantity}</S.QuantityCounter>
+                      <BsPlus onClick={handleAddProduct} />
                     </S.Quantity>
-                    <Button title="Add to cart" />
+                    <Button
+                      title="Add to cart"
+                      onClick={handleAddProductToCart}
+                    />
                   </S.ButtonsRow>
                   <Button dark title="Buy it now" />
                 </S.Buttons>

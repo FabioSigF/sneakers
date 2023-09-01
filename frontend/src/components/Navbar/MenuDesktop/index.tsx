@@ -14,6 +14,7 @@ import ShoppingBagButton from '../../ShoppingBagButton';
 import Menu from './Menu';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import { AuthenticationModalSlice } from '../../../redux/modal/authentication/slice';
+import { CartSlice } from '../../../redux/sidebar/cart/slice';
 
 type Props = {}
 
@@ -26,6 +27,10 @@ const MenuDesktop = (props: Props) => {
 
   const handleOpenProfile = () => {
     dispatch(AuthenticationModalSlice.actions.onToggle({}));
+  }
+
+  const handleOpenCart = () => {
+    dispatch(CartSlice.actions.onToggle({}));
   }
   return (
     <S.Wrapper>
@@ -64,7 +69,7 @@ const MenuDesktop = (props: Props) => {
               <S.Item>
                 <WishlistButton />
               </S.Item>
-              <S.Item>
+              <S.Item onClick={handleOpenCart}>
                 <ShoppingBagButton />
               </S.Item>
             </S.Col>
