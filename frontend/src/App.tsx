@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useAppDispatch } from "./redux/store";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
-import AuthenticationModal from "./components/Modal/AuthenticationModal";
+import AuthenticationModal from "./components/Modal/Authentication";
 import Footer from "./components/Footer";
-import QuickViewModal from "./components/Modal/QuickViewModal";
+import QuickViewModal from "./components/Modal/QuickView";
 import Cart from "./components/Sidebar/Cart";
 
 type Props = {};

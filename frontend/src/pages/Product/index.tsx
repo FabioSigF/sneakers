@@ -1,15 +1,29 @@
-import axios from "axios";
-import React, { ChangeEvent, useEffect, useState } from "react";
+//React Hooks
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+//Axios
+import axios from "axios";
+
+//Styles
 import * as S from "./styles";
+
+//Components
 import Container from "../../components/Container";
 import Button from "../../components/Button";
+
+//Icons
 import { IoStarOutline } from "react-icons/io5";
 import { LiaStopwatchSolid, LiaShippingFastSolid } from "react-icons/lia";
 import { BsDash, BsPlus } from "react-icons/bs";
+
+//Images
 import cardsFlag from "../../images/product/payment-icon_700x.avif";
+
+//Redux Hooks
 import { useAppDispatch } from "../../redux/store";
-import { CartSlice } from "../../redux/sidebar/cart/slice";
+//Redux Actions
+import { addProduct } from "../../redux/cart/slice";
 
 export type Photo = {
   id: number;
@@ -130,7 +144,7 @@ const Product = (props: Props) => {
       photo: product?.photos[0],
       id: product?.description.id,
     };
-    dispatch(CartSlice.actions.addProduct(productData));
+    dispatch(addProduct(productData));
   };
 
   useEffect(() => {

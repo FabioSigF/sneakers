@@ -1,19 +1,23 @@
+//React Hooks
 import { useState, useCallback } from "react";
-import Modal from "..";
+//Styles
 import * as S from "./styles";
+
+//Redux Hooks
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+//Redux Actions
+import { onToggle } from "../../../redux/modal/quickView/slice";
+
+//React Icons
 import { IoStarOutline } from "react-icons/io5";
-import { useAppSelector } from "../../../redux/store";
-import { useDispatch } from "react-redux";
-import { QuickViewSlice } from "../../../redux/modal/quickView/slice";
 import { BsDash, BsPlus } from "react-icons/bs";
+
+//Components
+import Modal from "..";
 import Button from "../../Button";
+import { addProduct } from "../../../redux/cart/slice";
 
 type Props = {};
-
-interface Photo {
-  id: number;
-  photo_link: string;
-}
 
 const QuickViewModal = (props: Props) => {
   //Temporário até ser adicionado no DB
@@ -21,16 +25,16 @@ const QuickViewModal = (props: Props) => {
   
   const [selectedPhoto, setSelectedPhoto] = useState(0);
 
-  const [quantityCounter, setQuantityCounter] = useState(1);
+  const [productQuantity, setProductQuantity] = useState(1);
   
-  const { title, rating, price, promotion, photos, isOpen } = useAppSelector(
-    (state) => state.modalQuickViewReducer
+  const { title, rating, price, promotion, photos, isOpen, id } = useAppSelector(
+    (state) => state.modalQuickView
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const toggle = useCallback(() => {
-    dispatch(QuickViewSlice.actions.onToggle({}));
+    dispatch(onToggle({}));
   }, [dispatch]);
 
   const handleChoosePhoto = (id: number) => {
@@ -38,12 +42,12 @@ const QuickViewModal = (props: Props) => {
   }
 
   const handleAddProduct = () => {
-    setQuantityCounter(quantityCounter + 1);
+    setProductQuantity(productQuantity + 1);
   }
 
   const handleRemoveProduct = () => {
-    if(quantityCounter > 1) {
-      setQuantityCounter(quantityCounter - 1);
+    if(productQuantity > 1) {
+      setProductQuantity(productQuantity - 1);
     }
   }
 
@@ -52,6 +56,23 @@ const QuickViewModal = (props: Props) => {
 
     const button: HTMLButtonElement = e.currentTarget;
     setProductSize(button.name);
+  };
+
+  const handleAddProductToCart = () => {
+    const productData = {
+      title: title,
+      price: promotion
+        ? (
+            price -
+            (price * promotion) / 100
+          ).toFixed(2)
+        : price,
+      size: productSize,
+      quantity: productQuantity,
+      photo: photos[0],
+      id: id,
+    };
+    dispatch(addProduct(productData));
   };
 
   const productSizeList = [
@@ -96,8 +117,6 @@ const QuickViewModal = (props: Props) => {
       avaible: false,
     },
   ];
-
-  console.log(selectedPhoto);
 
   const bodyContent = (
     <S.BodyWrapper>
@@ -166,10 +185,10 @@ const QuickViewModal = (props: Props) => {
                   <S.ButtonsRow>
                     <S.Quantity>
                       <BsDash onClick={handleRemoveProduct} />
-                      <S.QuantityCounter>{quantityCounter}</S.QuantityCounter>
+                      <S.QuantityCounter>{productQuantity}</S.QuantityCounter>
                       <BsPlus onClick={handleAddProduct}/>
                     </S.Quantity>
-                    <Button title="Add to cart" />
+                    <Button title="Add to cart" onClick={handleAddProductToCart} />
                   </S.ButtonsRow>
                   <Button dark title="Buy it now" />
                 </S.Buttons>

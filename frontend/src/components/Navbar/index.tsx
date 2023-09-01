@@ -1,6 +1,3 @@
-"use client";
-import React from 'react'
-
 //Styles
 import * as S from './styles'
 
@@ -14,15 +11,17 @@ import MenuMobile from './MenuMobile';
 import ShoppingBagButton from '../ShoppingBagButton';
 import MenuDesktop from './MenuDesktop';
 import Hamburger from './Hamburger';
+
+//Redux Hooks
 import { useAppSelector } from '../../redux/store';
 
 type Props = {}
 
 const Navbar = (props: Props) => {
 
-  const {isOpen} = useAppSelector(rootReducer => rootReducer.mobileHeaderReducer);
+  const {isOpen} = useAppSelector(state => state.mobileHeader);
 
-  const { mobile, tablet, laptop } = useAppSelector(rootReducer => rootReducer.deviceTypeReducer);
+  const { mobile, tablet, laptop } = useAppSelector(state => state.deviceType);
 
   return (
     <S.Wrapper>

@@ -7,28 +7,6 @@ export const Header = styled.div`
   gap: 1rem;
 `;
 
-export const Icon = styled.div`
-  position: relative;
-  font-size: ${fsize.title};
-  width: 30px;
-  height: 35px;
-`;
-
-export const IconCount = styled.div`
-  position: absolute;
-  content: "";
-  display: block;
-  background-color: ${clr.title};
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  color: ${clr.primaryLight};
-  top: -0.5rem;
-  right: 0;
-  text-align: center;
-  font-size: small;
-`;
-
 export const Title = styled.span`
   text-transform: uppercase;
   color: ${clr.title};
@@ -59,8 +37,10 @@ export const ProductsList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-height: 200px;
+  height: 200px;
   overflow-y: auto;
+  width: 100%;
+  padding-bottom: 2rem;
 
   &::-webkit-scrollbar {
     width: 20px;
@@ -149,4 +129,115 @@ export const IconRemoveProduct = styled.div`
   }
 `;
 
-export const Total = styled.div ``
+export const Footer = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 2rem;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  }
+`;
+export const Total = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: ${clr.title};
+  font-family: ${ffamily.title};
+  font-size: ${fsize.normalSmaller};
+  text-transform: uppercase;
+  font-weight: 700;
+
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: ${clr.grayBg};
+    bottom: -1rem;
+    left: 0;
+    right: 0;
+  }
+`;
+
+export const Shipping = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const ShippingTitle = styled.div`
+  text-transform: uppercase;
+  font-size: ${fsize.xsmall};
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  svg {
+    font-size: ${fsize.iconSizeSmall};
+  }
+
+  &.active {
+    color: ${clr.success};
+  }
+`;
+
+export const ShippingBar = styled.div``;
+
+export const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export const AgreedTerms = styled.div`
+  display: flex;
+  align-self: flex-start;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const Checkbox = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid #d0d0d0;
+  margin-right: 10px;
+  text-align: center;
+  line-height: 18px;
+
+  i {
+    background-color: transparent;
+    transition: ${transition.default};
+    color: ${clr.whiteText};
+  }
+
+  &.active {
+    i {
+      background-color: ${clr.primaryLight};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+  }
+`;

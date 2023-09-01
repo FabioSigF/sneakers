@@ -1,10 +1,19 @@
-import React, { useState, useCallback } from "react";
-import Modal from "..";
-import * as S from "./styles";
+//React Hooks
+import { useState, useCallback } from "react";
+
+//Axios
 import axios from "axios";
-import { useAppSelector } from "../../../redux/store";
-import { useDispatch } from "react-redux";
-import { AuthenticationModalSlice } from "../../../redux/modal/authentication/slice";
+
+//Styles
+import * as S from "./styles";
+
+//Redux Hooks
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+//Redux Actions
+import { onToggle } from "../../../redux/modal/authentication/slice";
+
+//Components
+import Modal from "..";
 
 type Props = {};
 
@@ -21,13 +30,8 @@ interface RegisterState {
 }
 
 const AuthenticationModal = (props: Props) => {
+  //Modal Page States - if registerModalActive, form will be about register. Else, login.
   const [registerModalActive, setRegisterModalActive] = useState(false);
-
-  const { isOpen } = useAppSelector(
-    (state) => state.modalAuthenticationReducer
-  );
-
-  axios.defaults.withCredentials = true;
 
   //Form states
   const [loginValues, setLoginValues] = useState<LoginState>({
@@ -41,8 +45,16 @@ const AuthenticationModal = (props: Props) => {
     password: "",
   });
 
-  const dispatch = useDispatch();
+  //Redux states
+  const { isOpen } = useAppSelector((state: any) => state.modalAuthentication);
 
+  //Axios
+  axios.defaults.withCredentials = true;
+
+  //Redux Dispatch
+  const dispatch = useAppDispatch();
+
+  //Login and Register submit
   const handleSubmit = async () => {
     //Se é um formulário de registro
     if (registerModalActive) {
@@ -71,9 +83,11 @@ const AuthenticationModal = (props: Props) => {
     }
   };
 
+  //Modal is open or not
   const toggle = useCallback(() => {
-    dispatch(AuthenticationModalSlice.actions.onToggle({}));
+    dispatch(onToggle({}));
   }, [dispatch]);
+
   //Layout Login and Register
   const headerContent = (
     <S.HeaderWrapper>

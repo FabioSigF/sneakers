@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface Product {
+export interface Product {
   title: string;
   price: number;
   size: number;
@@ -17,13 +17,11 @@ interface Photo {
 interface StateProps {
   isOpen: boolean;
   products: Product[];
-  totalPrice: number;
 }
 
 const initialState: StateProps = {
   isOpen: false,
   products: [],
-  totalPrice: 0,
 };
 
 export const CartSlice = createSlice({

@@ -1,27 +1,54 @@
-import React, { useCallback, useEffect } from "react";
+//React Hooks
+import { useCallback, useState } from "react";
+
+//Styles
 import * as S from "./styles";
+
+//Components
 import Sidebar from "..";
-import { IoBagHandleOutline } from "react-icons/io5";
-import { useAppDispatch, useAppSelector } from "../../../redux/store";
-import { CartSlice } from "../../../redux/sidebar/cart/slice";
 import Button from "../../Button";
+
+//Icons
+import { IoCheckmark } from "react-icons/io5";
 import { BsDash, BsPlus, BsTrash } from "react-icons/bs";
+
+//Redux Hooks
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+//Redux Actions
+import {
+  decreaseProductQuantity,
+  increaseProductQuantity,
+  onToggle,
+  removeProduct,
+} from "../../../redux/cart/slice";
+//Redux Selectors
+import {
+  selectProductsCount,
+  selectProductsTotalPrice,
+} from "../../../redux/cart/selectors";
+import { LiaShippingFastSolid } from "react-icons/lia";
+import ShoppingBagButton from "../../ShoppingBagButton";
+
 type Props = {};
 
 const Cart = (props: Props) => {
-  
-  const { isOpen, products } = useAppSelector((state) => state.cartReducer);
+  const [termsAgreed, setTermsAgreed] = useState(false);
+  //Redux Cart States
+  const { isOpen, products } = useAppSelector((state) => state.cart);
+  const productsTotalPrice: number = useAppSelector(selectProductsTotalPrice);
+  const productsQuantity: number = useAppSelector(selectProductsCount);
   const dispatch = useAppDispatch();
 
-  console.log(products);
+  //Close Sidebar
   const handleClose = useCallback(() => {
-    dispatch(CartSlice.actions.onToggle({}));
+    dispatch(onToggle({}));
   }, [dispatch]);
 
+  //Products Functions
   const handleRemoveProduct = useCallback(
     (id: number, size: number) => {
       dispatch(
-        CartSlice.actions.removeProduct({
+        removeProduct({
           id: id,
           size: size,
         })
@@ -33,7 +60,7 @@ const Cart = (props: Props) => {
   const handleIncreaseProduct = useCallback(
     (id: number, size: number) => {
       dispatch(
-        CartSlice.actions.increaseProductQuantity({
+        increaseProductQuantity({
           id: id,
           size: size,
         })
@@ -45,7 +72,7 @@ const Cart = (props: Props) => {
   const handleDecreaseProduct = useCallback(
     (id: number, size: number) => {
       dispatch(
-        CartSlice.actions.decreaseProductQuantity({
+        decreaseProductQuantity({
           id: id,
           size: size,
         })
@@ -53,15 +80,10 @@ const Cart = (props: Props) => {
     },
     [dispatch]
   );
-  
+
   const header = (
     <S.Header>
-      <S.Icon>
-        <IoBagHandleOutline />
-        <S.IconCount>
-          <span>{products.length}</span>
-        </S.IconCount>
-      </S.Icon>
+      <ShoppingBagButton />
       <S.Title>Cart</S.Title>
     </S.Header>
   );
@@ -124,10 +146,48 @@ const Cart = (props: Props) => {
               </S.ProductItem>
             ))}
           </S.ProductsList>
-          <S.Total>
-            <span>Total</span>
-            <p>{}</p>
-          </S.Total>
+          <S.Footer>
+            <S.Total>
+              <span>Total</span>
+              <p>R$ {productsTotalPrice}</p>
+            </S.Total>
+            <S.Shipping>
+              {productsTotalPrice < 200 ? (
+                <>
+                  <S.ShippingTitle>
+                    <span>
+                      Spend ${(200 - productsTotalPrice).toFixed(2)} for free
+                      shipping
+                    </span>
+                  </S.ShippingTitle>
+                </>
+              ) : (
+                <>
+                  <S.ShippingTitle className="active">
+                    <span>Congratulations! You've got free shipping!</span>
+                    <LiaShippingFastSolid />
+                  </S.ShippingTitle>
+                </>
+              )}
+            </S.Shipping>
+            <S.Buttons>
+              <Button title="View cart" large />
+              {termsAgreed ? (
+                <Button title="Check out" dark large />
+              ) : (
+                <Button title="Check out" dark large disabled />
+              )}
+              <S.AgreedTerms>
+                <S.Checkbox
+                  onClick={() => setTermsAgreed(!termsAgreed)}
+                  className={`${termsAgreed && "active"}`}
+                >
+                  <i>{termsAgreed && <IoCheckmark />}</i>
+                </S.Checkbox>
+                I agree with Terms & conditions
+              </S.AgreedTerms>
+            </S.Buttons>
+          </S.Footer>
         </>
       )}
     </S.Body>

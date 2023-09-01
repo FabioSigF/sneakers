@@ -11,6 +11,7 @@ export const iconsList = {
   phone: "FaPhoneVolume, fa6",
   person: "IoPersonOutline",
   heart: "IoHeartOutline",
+  truckShipping: "LiaShippingFastSolid"
 };
 
 export const ffamily = {
@@ -34,6 +35,7 @@ export const clr = {
   darkBg: "#000",
   bodyBg: "#fff",
   grayBg: "#EDEDED",
+  success: "#30b94d",
 };
 
 export const fsize = {

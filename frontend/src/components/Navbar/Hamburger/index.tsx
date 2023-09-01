@@ -1,18 +1,22 @@
-import React from 'react';
+//Styles
 import * as S from './styles';
 
+///Redux Hooks
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import { MobileHeaderSlice } from '../../../redux/mobileHeader/slice';
+//Redux Actions
+import { onToggle } from '../../../redux/mobileHeader/slice';
+
+
 type Props = {}
 
 const Hamburger = (props: Props) => {
 
-  const { isOpen } = useAppSelector(rootReducer => rootReducer.mobileHeaderReducer);
+  const { isOpen } = useAppSelector(state => state.mobileHeader);
   const dispatch = useAppDispatch();
 
   return (
     <S.Wrapper
-      onClick={() => dispatch(MobileHeaderSlice.actions.onToggle({}))}
+      onClick={() => dispatch(onToggle({}))}
       menuopen={isOpen}
     >
       <div />

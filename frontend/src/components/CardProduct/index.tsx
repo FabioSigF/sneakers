@@ -1,12 +1,25 @@
+//Axios
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+//Styles
 import * as S from "./styles";
-import AsideButton from "./AsideButton";
+
+//Icons
 import { IoHeartOutline, IoImagesOutline } from "react-icons/io5";
-import AddButton from "./AddButton";
+
+//React Hooks
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+//Components
+import AsideButton from "./AsideButton";
+import AddButton from "./AddButton";
+
+//Redux Hooks
 import { useAppDispatch } from "../../redux/store";
-import { QuickViewSlice } from "../../redux/modal/quickView/slice";
+
+//Redux Actions
+import { onToggle, setStates } from "../../redux/modal/quickView/slice";
+import { addProduct } from "../../redux/wishList/slice";
 
 type Props = {
   title: string;
@@ -56,8 +69,16 @@ const CardProduct = ({
     navigate(`/products/${id}`);
   };
 
-  const handleOnAddCart = (id: number) => {
-    navigate(`/products/cart/${id}`);
+  const handleAddToCart = (id: number) => {};
+
+  const handleAddToWishList = () => {
+    const data = {
+      title: title,
+      price: price,
+      photo: productPhotos,
+      id: id,
+    };
+    dispatch(addProduct(data));
   };
 
   const handleQuickView = (
@@ -74,12 +95,8 @@ const CardProduct = ({
       promotion: promotion,
       photos: photos,
     };
-    dispatch(
-      QuickViewSlice.actions.setStates(data)
-    );
-    dispatch(
-      QuickViewSlice.actions.onToggle({})
-    );
+    dispatch(setStates(data));
+    dispatch(onToggle({}));
   };
 
   useEffect(() => {
@@ -99,7 +116,9 @@ const CardProduct = ({
             />
           ))}
         <S.SideButtons className="card_product__sideButtons">
-          <AsideButton Icon={IoHeartOutline} title="Add to Wishlist" />
+          <div onClick={() => handleAddToWishList()}>
+            <AsideButton Icon={IoHeartOutline} title="Add to Wishlist" />
+          </div>
           <div
             onClick={() =>
               handleQuickView(title, 5, price, promotion, productPhotos)
@@ -109,7 +128,7 @@ const CardProduct = ({
           </div>
         </S.SideButtons>
         <S.AddButtonContainer className="card_product__addButton">
-          <AddButton onClick={() => handleOnAddCart(id)} title="Quick Add" />
+          <AddButton onClick={() => handleAddToCart(id)} title="Quick Add" />
         </S.AddButtonContainer>
       </S.ImageContainer>
       <S.Description>

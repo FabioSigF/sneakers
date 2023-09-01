@@ -6,6 +6,7 @@ interface StateProps {
   price: number;
   promotion: number;
   photos: Photo[];
+  id: number;
   isOpen: boolean;
 }
 
@@ -21,6 +22,7 @@ const initialState: StateProps = {
   promotion: 0,
   photos: [],
   isOpen: false,
+  id: 0
 };
 
 export const QuickViewSlice = createSlice({
@@ -33,6 +35,7 @@ export const QuickViewSlice = createSlice({
       state.rating = action.payload.rating;
       state.promotion = action.payload.promotion;
       state.photos = action.payload.photos;
+      state.id = action.payload.id;
     },
     onToggle: (state, _) => {
       state.isOpen = !state.isOpen.valueOf();
