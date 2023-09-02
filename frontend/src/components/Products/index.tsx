@@ -3,6 +3,7 @@ import * as S from "./styles";
 import Container from "../Container";
 import CardProduct from "../CardProduct";
 import Button from "../Button";
+import { SectionTitle } from "../../globalStyle";
 
 type Props = {
   title: String;
@@ -24,7 +25,7 @@ const Products = ({ title, list }: Props) => {
   return (
     <S.Wrapper>
       <Container>
-        <S.Title>{title}</S.Title>
+        <SectionTitle textCenter>{title}</SectionTitle>
         <S.List>
           {list &&
             list.map((item, key) => (

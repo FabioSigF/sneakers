@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, styled } from "styled-components";
 
 export const iconsList = {
   rightChevron: "BiChevronRight",
@@ -76,6 +76,13 @@ export const deviceSize = {
   laptopL: "1440px",
   desktop: "2560px",
 };
+
+export const SectionTitle = styled.h3<{textCenter?: boolean}>`
+  text-align: ${props => props.textCenter ? "center" : "start"};
+  font-size: ${fsize.title};
+  text-transform: uppercase;
+  padding-bottom: ${height.sectionHalf};
+`
 
 export const GlobalStyle = createGlobalStyle`
   * {

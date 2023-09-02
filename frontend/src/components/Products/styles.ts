@@ -1,16 +1,9 @@
 import { styled } from "styled-components";
-import { fsize, height } from "../../globalStyle";
+import { height } from "../../globalStyle";
 
 export const Wrapper = styled.section`
   padding-top: ${height.section};
   padding-bottom: ${height.section};
-`;
-
-export const Title = styled.h3`
-  text-align: center;
-  font-size: ${fsize.title};
-  text-transform: uppercase;
-  padding-bottom: ${height.sectionHalf};
 `;
 
 export const List = styled.ul`
