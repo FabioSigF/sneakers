@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { selectProductsTotalPrice } from "./selectors";
 
 export interface Product {
   title: string;
@@ -19,9 +20,14 @@ interface StateProps {
   products: Product[];
 }
 
+const products =
+  localStorage.getItem("cart_products") !== null 
+    ? JSON.parse(localStorage.getItem("cart_products") || "")
+    : [];
+
 const initialState: StateProps = {
   isOpen: false,
-  products: [],
+  products: products,
 };
 
 export const CartSlice = createSlice({
@@ -45,7 +51,14 @@ export const CartSlice = createSlice({
               }
             : product
         );
-
+        localStorage.setItem(
+          "cart_products",
+          JSON.stringify(state.products.map((item) => item))
+        );
+        localStorage.setItem(
+          "cart_products_totalPrice",
+          JSON.stringify(selectProductsTotalPrice)
+        );
         return;
       }
 
@@ -53,14 +66,21 @@ export const CartSlice = createSlice({
         ...state.products,
         { ...action.payload, quantity: action.payload.quantity },
       ];
+      localStorage.setItem(
+        "cart_products",
+        JSON.stringify(state.products.map((item) => item))
+      );
     },
     removeProduct: (state, action) => {
       state.products = state.products.filter(
-        (product) => (
-          (product.id !== action.payload.id) || 
+        (product) =>
+          product.id !== action.payload.id ||
           (product.id === action.payload.id &&
             product.size !== action.payload.size)
-          )
+      );
+      localStorage.setItem(
+        "cart_products",
+        JSON.stringify(state.products.map((item) => item))
       );
     },
     increaseProductQuantity: (state, action) => {
@@ -71,6 +91,10 @@ export const CartSlice = createSlice({
               quantity: product.quantity + 1,
             }
           : product
+      );
+      localStorage.setItem(
+        "cart_products",
+        JSON.stringify(state.products.map((item) => item))
       );
     },
     decreaseProductQuantity: (state, action) => {
@@ -85,11 +109,14 @@ export const CartSlice = createSlice({
             : product
         )
         .filter((product) => product.quantity > 0);
+      localStorage.setItem(
+        "cart_products",
+        JSON.stringify(state.products.map((item) => item))
+      );
     },
     onToggle: (state, _) => {
       state.isOpen = !state.isOpen.valueOf();
     },
-    
   },
 });
 

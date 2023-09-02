@@ -56,6 +56,7 @@ export const fsize = {
 
 export const transition = {
   default: "all 0.45s cubic-bezier(0.29, 0.63, 0.44, 1)",
+  defaultLazy: "all 1.45s cubic-bezier(0.29, 0.63, 0.44, 1)",
 };
 
 export const height = {

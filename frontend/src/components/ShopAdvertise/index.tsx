@@ -28,11 +28,15 @@ const ShopAdvertise = ({
             <S.Text>{text}</S.Text>
             <Button title={buttonTitle} link={link} dark />
           </S.Description>
-          <S.Image src={image} alt={title} />
+          <S.Image>
+            <img src={image} alt={title} />
+          </S.Image>
         </>
       ) : (
         <>
-          <S.Image src={image} alt={title} />
+          <S.Image>
+            <img src={image} alt={title} />
+          </S.Image>
           <S.Description>
             <S.Title>{title}</S.Title>
             <S.Text>{text}</S.Text>
