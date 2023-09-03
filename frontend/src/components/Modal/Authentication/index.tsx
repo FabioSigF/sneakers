@@ -15,73 +15,20 @@ import { onToggle } from "../../../redux/modal/authentication/slice";
 //Components
 import Modal from "..";
 
+import Register from "./Register";
+import Login from "./Login";
+
 type Props = {};
-
-interface LoginState {
-  email: string;
-  password: string;
-}
-
-interface RegisterState {
-  email: string;
-  first_name: string;
-  last_name: string;
-  password: string;
-}
 
 const AuthenticationModal = (props: Props) => {
   //Modal Page States - if registerModalActive, form will be about register. Else, login.
   const [registerModalActive, setRegisterModalActive] = useState(false);
-
-  //Form states
-  const [loginValues, setLoginValues] = useState<LoginState>({
-    email: "",
-    password: "",
-  });
-  const [registerValues, setRegisterValues] = useState<RegisterState>({
-    email: "",
-    first_name: "",
-    last_name: "",
-    password: "",
-  });
-
+  
   //Redux states
   const { isOpen } = useAppSelector((state: any) => state.modalAuthentication);
 
-  //Axios
-  axios.defaults.withCredentials = true;
-
   //Redux Dispatch
   const dispatch = useAppDispatch();
-
-  //Login and Register submit
-  const handleSubmit = async () => {
-    //Se é um formulário de registro
-    if (registerModalActive) {
-      try {
-        await axios
-          .post("http://localhost:8800/users/register", registerValues)
-          .then((res) => console.log(res));
-        setRegisterValues({
-          email: "",
-          first_name: "",
-          last_name: "",
-          password: "",
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      //Se é um formulário de login
-      try {
-        await axios
-          .post("http://localhost:8800/users/login", loginValues)
-          .then((res) => console.log(res));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
 
   //Modal is open or not
   const toggle = useCallback(() => {
@@ -108,96 +55,18 @@ const AuthenticationModal = (props: Props) => {
 
   let bodyContent;
 
+  //Se é formulário de registro...
   if (registerModalActive) {
-    bodyContent = (
-      <S.Form>
-        <S.InputContainer>
-          <label>Email address</label>
-          <input
-            type="email"
-            placeholder="Email"
-            value={registerValues.email}
-            onChange={(e) =>
-              setRegisterValues({ ...registerValues, email: e.target.value })
-            }
-          />
-        </S.InputContainer>
-        <S.InputContainer>
-          <label>First Name</label>
-          <input
-            type="text"
-            placeholder="First name"
-            value={registerValues.first_name}
-            onChange={(e) =>
-              setRegisterValues({
-                ...registerValues,
-                first_name: e.target.value,
-              })
-            }
-          />
-        </S.InputContainer>
-        <S.InputContainer>
-          <label>Last Name</label>
-          <input
-            type="text"
-            placeholder="Last name"
-            value={registerValues.last_name}
-            onChange={(e) =>
-              setRegisterValues({
-                ...registerValues,
-                last_name: e.target.value,
-              })
-            }
-          />
-        </S.InputContainer>
-        <S.InputContainer>
-          <label>Password</label>
-          <input
-            type="text"
-            placeholder="Password"
-            value={registerValues.password}
-            onChange={(e) =>
-              setRegisterValues({ ...registerValues, password: e.target.value })
-            }
-          />
-        </S.InputContainer>
-      </S.Form>
-    );
+    bodyContent = <Register isOpen={registerModalActive} />;
   } else {
-    bodyContent = (
-      <S.Form>
-        <S.InputContainer>
-          <label>Email address</label>
-          <input
-            type="email"
-            placeholder="Email"
-            value={loginValues.email}
-            onChange={(e) =>
-              setLoginValues({ ...loginValues, email: e.target.value })
-            }
-          />
-        </S.InputContainer>
-        <S.InputContainer>
-          <label>Password</label>
-          <input
-            type="text"
-            placeholder="Password"
-            value={loginValues.password}
-            onChange={(e) =>
-              setLoginValues({ ...loginValues, password: e.target.value })
-            }
-          />
-        </S.InputContainer>
-      </S.Form>
-    );
+    //Se é formulário de login...
+    bodyContent = <Login isOpen={!registerModalActive}/>;
   }
 
   return (
     <Modal
       header={headerContent}
       body={bodyContent}
-      footerActionLabel={registerModalActive ? "Register" : "Login"}
-      onSubmit={handleSubmit}
       isOpen={isOpen}
       onClose={toggle}
     />
