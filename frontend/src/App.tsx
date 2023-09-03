@@ -9,6 +9,7 @@ import AuthenticationModal from "./components/Modal/Authentication";
 import Footer from "./components/Footer";
 import QuickViewModal from "./components/Modal/QuickView";
 import Cart from "./components/Sidebar/Cart";
+import Search from "./pages/Search";
 
 type Props = {};
 
@@ -37,6 +38,7 @@ const App = (props: Props) => {
       <div style={{ marginTop: "150px" }}>
         <Routes>
           <Route index path="/" element={<Home />} />
+          <Route index path="/search" element={<Search />} />
           <Route index path="/products/:id" element={<Product />} />
         </Routes>
       </div>

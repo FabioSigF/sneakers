@@ -1,4 +1,4 @@
-import { clr, ffamily, fsize, height } from "../../../globalStyle";
+import { clr, ffamily, fsize, height, transition } from "../../../globalStyle";
 import { styled } from "styled-components";
 
 export const Wrapper = styled.div `
@@ -42,6 +42,11 @@ export const Item = styled.li <{bgPrimary?: boolean}>`
 
     width: 50px;
     height: 100%;
+  }
+  transition: ${transition.default};
+  
+  &:hover {
+    background-color: ${clr.grayBgDarker};
   }
 `
 

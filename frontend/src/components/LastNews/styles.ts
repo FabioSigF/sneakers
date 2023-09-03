@@ -10,7 +10,7 @@ export const Wrapper = styled.section `
 export const List = styled.ul `
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 2rem;
 `
 
 export const Item = styled.li ``

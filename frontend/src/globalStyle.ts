@@ -35,6 +35,7 @@ export const clr = {
   darkBg: "#000",
   bodyBg: "#fff",
   grayBg: "#EDEDED",
+  grayBgDarker: "#dadada",
   success: "#30b94d",
 };
 

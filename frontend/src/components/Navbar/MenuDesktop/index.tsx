@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store";
 //Redux Actions
 import { onToggle as authenticationSliceOnToggle } from "../../../redux/modal/authentication/slice";
 import { onToggle as cartSliceOnToggle } from "../../../redux/cart/slice";
+import SearchBar from "../../SearchBar";
 
 type Props = {};
 
@@ -53,11 +54,7 @@ const MenuDesktop = (props: Props) => {
           </S.Col>
 
           <S.Col style={{ justifyContent: "flex-end" }}>
-            <S.Item>
-              <a href="#!">
-                <IoSearchOutline />
-              </a>
-            </S.Item>
+            <SearchBar />
             <S.Item onClick={handleOpenProfile}>
               <a href="#!">
                 <IoPersonOutline />
