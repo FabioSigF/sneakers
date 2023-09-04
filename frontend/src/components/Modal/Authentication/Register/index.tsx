@@ -8,6 +8,7 @@ import { z, ZodType } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 type Props = {
   isOpen: boolean;
@@ -25,9 +26,20 @@ const Register = ({ isOpen }: Props) => {
   //Axios
   axios.defaults.withCredentials = true;
 
+  const initialPayload: RegisterForm = {
+    email: "",
+    first_name: "",
+    last_name: "",
+    password: "",
+    confirmPassword: "",
+  };
+
   const schemaRegister: ZodType<RegisterForm> = z
     .object({
-      email: z.string().email("Email inválido.").nonempty("O email é obrigatório."),
+      email: z
+        .string()
+        .email("Email inválido.")
+        .nonempty("O email é obrigatório."),
       first_name: z
         .string()
         .min(2, "O nome precisa ter ao menos 2 letras.")
@@ -63,6 +75,7 @@ const Register = ({ isOpen }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<RegisterForm>({ resolver: zodResolver(schemaRegister) });
 
   const submitRegister = async (data: RegisterForm) => {
@@ -70,7 +83,14 @@ const Register = ({ isOpen }: Props) => {
       try {
         await axios
           .post("http://localhost:8800/users/register", data)
-          .then((res) => console.log(res));
+          .then((res) => {
+            if (res.data.Status === "Success") {
+              reset(initialPayload, { keepIsSubmitted: false });
+              toast.success("Usuário registrado com sucesso!");
+            } else {
+              toast.error("Houve um erro ao registrar o usuário...");
+            }
+          });
       } catch (error) {
         console.log(error);
       }

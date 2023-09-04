@@ -20,6 +20,7 @@ import { useAppDispatch } from "../../redux/store";
 //Redux Actions
 import { onToggle, setStates } from "../../redux/modal/quickView/slice";
 import { addProduct } from "../../redux/wishList/slice";
+import { toast } from "react-toastify";
 
 type Props = {
   title: string;
@@ -79,6 +80,7 @@ const CardProduct = ({
       id: id,
     };
     dispatch(addProduct(data));
+    toast.success("Produto adicionado à Lista de Desejos!");
   };
 
   const handleQuickView = (

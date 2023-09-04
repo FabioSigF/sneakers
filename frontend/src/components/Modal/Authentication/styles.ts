@@ -61,4 +61,8 @@ export const InputContainer = styled.div`
     display: block;
     margin-bottom: .5rem;
   }
+  span {
+    font-size: ${fsize.small};
+    color: ${clr.error};
+  }
 `;

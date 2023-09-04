@@ -16,6 +16,7 @@ import { BsDash, BsPlus } from "react-icons/bs";
 import Modal from "..";
 import Button from "../../Button";
 import { addProduct } from "../../../redux/cart/slice";
+import { toast } from "react-toastify";
 
 type Props = {};
 
@@ -73,6 +74,7 @@ const QuickViewModal = (props: Props) => {
       id: id,
     };
     dispatch(addProduct(productData));
+    toast.success("Produto adicionado ao carrinho!");
   };
 
   const productSizeList = [

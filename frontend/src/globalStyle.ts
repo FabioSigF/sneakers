@@ -37,6 +37,7 @@ export const clr = {
   grayBg: "#EDEDED",
   grayBgDarker: "#dadada",
   success: "#30b94d",
+  error: "#d43131",
 };
 
 export const fsize = {

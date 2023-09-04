@@ -1,8 +1,16 @@
 import React, { useEffect } from "react";
-import { DeviceTypeSlice } from "./redux/deviceType/slice";
-import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+//Redux Hooks
 import { useAppDispatch } from "./redux/store";
+//Redux Actions
+import { DeviceTypeSlice } from "./redux/deviceType/slice";
+
+
+//React Router DOM
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+//Components
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import AuthenticationModal from "./components/Modal/Authentication";
@@ -10,6 +18,7 @@ import Footer from "./components/Footer";
 import QuickViewModal from "./components/Modal/QuickView";
 import Cart from "./components/Sidebar/Cart";
 import Search from "./pages/Search";
+import ToastProvider from "./providers/ToastProvider";
 
 type Props = {};
 
@@ -31,6 +40,7 @@ const App = (props: Props) => {
 
   return (
     <Router>
+      <ToastProvider />
       <QuickViewModal />
       <AuthenticationModal />
       <Cart />
