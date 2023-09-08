@@ -12,7 +12,8 @@ export const Wrapper = styled.div `
   border-radius: 50%;
   box-shadow: 4px 4px 5px rgba(0,0,0,0.1);
   transition: ${transition.default};
-  &:hover {
+  &:hover,
+  &.active {
     background-color: ${clr.darkBg};
     color: ${clr.bodyBg};
   }

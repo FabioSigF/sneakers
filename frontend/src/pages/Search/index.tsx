@@ -65,19 +65,12 @@ const Search = (props: Props) => {
       <Container>
         {searchedProducts.length > 0 ? (
           <>
-            <S.Title>Resultados para "{searchString}"({searchedProducts.length}): </S.Title>
+            <S.Title>
+              Resultados para "{searchString}"({searchedProducts.length}):{" "}
+            </S.Title>
             <S.List>
               {searchedProducts.map((item) => (
-                <CardProduct
-                  title={item.model}
-                  brand={item.brand}
-                  price={item.price}
-                  p_type={item.p_type}
-                  gender={item.gender}
-                  id={item.id}
-                  promotion={item.promotion}
-                  category={item.category}
-                />
+                <CardProduct id={item.id} />
               ))}
             </S.List>
           </>

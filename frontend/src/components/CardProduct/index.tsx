@@ -15,56 +15,37 @@ import AsideButton from "./AsideButton";
 import AddButton from "./AddButton";
 
 //Redux Hooks
-import { useAppDispatch } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 
 //Redux Actions
 import { onToggle, setStates } from "../../redux/modal/quickView/slice";
-import { addProduct } from "../../redux/wishList/slice";
-import { toast } from "react-toastify";
+import { addProduct, removeProduct } from "../../redux/wishList/slice";
+import { selectProductAlreadyOnCart } from "../../redux/wishList/selectors";
+import { Photo, ProductT } from "../../pages/Product";
 
 type Props = {
-  title: string;
-  brand: string;
-  price: number;
-  p_type: string;
-  gender: string;
   id: number;
-  promotion: number;
-  category: string;
 };
 
-interface CardImage {
-  id: number;
-  photo_link: string;
-}
+const CardProduct = ({ id }: Props) => {
+  const [product, setProduct] = useState<ProductT>();
+  const [productPhotos, setProductPhotos] = useState<Photo[]>([]);
 
-const CardProduct = ({
-  title,
-  brand,
-  price,
-  p_type,
-  gender,
-  id,
-  promotion,
-  category,
-}: Props) => {
-  const [productPhotos, setProductPhotos] = useState<CardImage[]>([]);
+  const getProduct = async () => {
+    await axios
+      .get(`http://localhost:8800/products/item/${id}`)
+      .then((response) => {
+        setProduct(response.data);
+        setProductPhotos([response.data.photos[0], response.data.photos[4]]);
+      });
+  };
+
 
   const dispatch = useAppDispatch();
 
-  const navigate = useNavigate();
+  const productIsAlreadyInCart = useAppSelector(selectProductAlreadyOnCart(id));
 
-  const handleProductPhotos = async () => {
-    try {
-      const res = await axios
-        .get(`http://localhost:8800/products/${id}`)
-        .then((response) => {
-          setProductPhotos([response.data[0], response.data[4]]);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const navigate = useNavigate();
 
   const handleOnClick = (id: number) => {
     navigate(`/products/${id}`);
@@ -74,13 +55,18 @@ const CardProduct = ({
 
   const handleAddToWishList = () => {
     const data = {
-      title: title,
-      price: price,
-      photo: productPhotos,
+      title: product?.description.model,
+      price: product?.description.price,
+      promotion: product?.description.promotion,
       id: id,
     };
     dispatch(addProduct(data));
-    toast.success("Produto adicionado à Lista de Desejos!");
+  
+  };
+
+  const handleRemoveFromWishList = () => {
+    dispatch(removeProduct(product?.description.id));
+  
   };
 
   const handleQuickView = (
@@ -88,7 +74,7 @@ const CardProduct = ({
     rating: number,
     price: number,
     promotion: number,
-    photos: CardImage[]
+    photos: Photo[]
   ) => {
     const data = {
       title: title,
@@ -102,56 +88,89 @@ const CardProduct = ({
   };
 
   useEffect(() => {
-    handleProductPhotos();
-  }, [setProductPhotos]);
+    getProduct();
+  }, [handleRemoveFromWishList]);
 
   return (
-    <S.Wrapper>
-      <S.ImageContainer>
-        {productPhotos &&
-          productPhotos.map((item, key) => (
-            <S.Image
-              key={key}
-              src={item.photo_link}
-              alt={title}
-              onClick={() => handleOnClick(id)}
-            />
-          ))}
-        <S.SideButtons className="card_product__sideButtons">
-          <div onClick={() => handleAddToWishList()}>
-            <AsideButton Icon={IoHeartOutline} title="Add to Wishlist" />
-          </div>
-          <div
-            onClick={() =>
-              handleQuickView(title, 5, price, promotion, productPhotos)
-            }
-          >
-            <AsideButton Icon={IoImagesOutline} title="Quick view" />
-          </div>
-        </S.SideButtons>
-        <S.AddButtonContainer className="card_product__addButton">
-          <AddButton onClick={() => handleAddToCart(id)} title="Quick Add" />
-        </S.AddButtonContainer>
-      </S.ImageContainer>
-      <S.Description>
-        <S.Title onClick={() => handleOnClick(id)}>
-          {p_type} {title}
-        </S.Title>
-        <S.TypeTag>{category}</S.TypeTag>
-        <S.Price>
-          {promotion ? (
-            <>
-              <S.PriceMain>
-                R$ {(price - (price * promotion) / 100).toFixed(2)}
-              </S.PriceMain>
-              <S.PricePromotion>R$ {price.toFixed(2)}</S.PricePromotion>
-            </>
-          ) : (
-            <S.PriceMain>R$ {price.toFixed(2)}</S.PriceMain>
-          )}
-        </S.Price>
-      </S.Description>
-    </S.Wrapper>
+    <>
+      {product && (
+        <S.Wrapper>
+          <S.ImageContainer>
+            {productPhotos &&
+              productPhotos.map((item, key) => (
+                <S.Image
+                  key={key}
+                  src={item.photo_link}
+                  alt={product.description.model}
+                  onClick={() => handleOnClick(id)}
+                />
+              ))}
+            <S.SideButtons className="card_product__sideButtons">
+              <div
+                onClick={() => {
+                  productIsAlreadyInCart
+                    ? handleRemoveFromWishList()
+                    : handleAddToWishList();
+                }}
+              >
+                <AsideButton
+                  Icon={IoHeartOutline}
+                  active={productIsAlreadyInCart ? true : false}
+                  title="Add to Wishlist"
+                />
+              </div>
+              <div
+                onClick={() =>
+                  handleQuickView(
+                    product.description.model,
+                    5,
+                    product.description.price,
+                    product.description.promotion,
+                    productPhotos
+                  )
+                }
+              >
+                <AsideButton Icon={IoImagesOutline} title="Quick view" />
+              </div>
+            </S.SideButtons>
+            <S.AddButtonContainer className="card_product__addButton">
+              <AddButton
+                onClick={() => handleAddToCart(id)}
+                title="Quick Add"
+              />
+            </S.AddButtonContainer>
+          </S.ImageContainer>
+          <S.Description>
+            <S.Title onClick={() => handleOnClick(id)}>
+              {product.description.p_type} {product.description.brand} {product.description.model}
+            </S.Title>
+            <S.TypeTag>{product.description.category}</S.TypeTag>
+            <S.Price>
+              {product.description.promotion ? (
+                <>
+                  <S.PriceMain>
+                    R${" "}
+                    {(
+                      product.description.price -
+                      (product.description.price *
+                        product.description.promotion) /
+                        100
+                    ).toFixed(2)}
+                  </S.PriceMain>
+                  <S.PricePromotion>
+                    R$ {product.description.price.toFixed(2)}
+                  </S.PricePromotion>
+                </>
+              ) : (
+                <S.PriceMain>
+                  R$ {product.description.price.toFixed(2)}
+                </S.PriceMain>
+              )}
+            </S.Price>
+          </S.Description>
+        </S.Wrapper>
+      )}
+    </>
   );
 };
 

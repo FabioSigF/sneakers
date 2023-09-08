@@ -11,7 +11,7 @@ export const iconsList = {
   phone: "FaPhoneVolume, fa6",
   person: "IoPersonOutline",
   heart: "IoHeartOutline",
-  truckShipping: "LiaShippingFastSolid"
+  truckShipping: "LiaShippingFastSolid",
 };
 
 export const ffamily = {
@@ -65,7 +65,7 @@ export const height = {
   navbarMobile: "60px",
   navbarDesktop: "90px",
   section: "7rem",
-  sectionHalf: "3.5rem"
+  sectionHalf: "3.5rem",
 };
 
 export const deviceSize = {
@@ -80,12 +80,25 @@ export const deviceSize = {
   desktop: "2560px",
 };
 
-export const SectionTitle = styled.h3<{textCenter?: boolean}>`
-  text-align: ${props => props.textCenter ? "center" : "start"};
+export const SectionTitle = styled.h3<{ textCenter?: boolean }>`
+  text-align: ${(props) => (props.textCenter ? "center" : "start")};
   font-size: ${fsize.title};
   text-transform: uppercase;
   padding-bottom: ${height.sectionHalf};
-`
+`;
+
+export const PageTitleContainer = styled.div<{ textLeft?: boolean }>`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: ${(props) => (props.textLeft ? "flex-start" : "center")};
+  padding-bottom: ${height.section};
+  h2 {
+    font-size: ${fsize.title};
+    text-transform: uppercase;
+  }
+`;
 
 export const GlobalStyle = createGlobalStyle`
   * {

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { selectProductsTotalPrice } from "./selectors";
+import { toast } from "react-toastify";
 
 export interface Product {
   title: string;
@@ -70,6 +71,7 @@ export const CartSlice = createSlice({
         "cart_products",
         JSON.stringify(state.products.map((item) => item))
       );
+      toast.success("Produto adicionado do carrinho!")
     },
     removeProduct: (state, action) => {
       state.products = state.products.filter(
@@ -82,6 +84,7 @@ export const CartSlice = createSlice({
         "cart_products",
         JSON.stringify(state.products.map((item) => item))
       );
+      toast.success("Produto removido do carrinho!")
     },
     increaseProductQuantity: (state, action) => {
       state.products = state.products.map((product) =>

@@ -8,3 +8,8 @@ export const selectProductsCount = createSelector([products], (products) => {
   products.forEach((item) => count++);
   return count;
 });
+
+export const selectProductAlreadyOnCart = (id: number) =>
+  createSelector([products], (products) => {
+    return products.some((product) => product.id === id);
+  });

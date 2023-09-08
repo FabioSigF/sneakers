@@ -31,14 +31,7 @@ const Products = ({ title, list }: Props) => {
             list.map((item, key) => (
               <CardProduct
                 key={key}
-                title={item.model}
-                brand={item.brand}
-                price={item.price}
-                p_type={item.p_type}
-                gender={item.gender}
                 id={item.id}
-                promotion={item.promotion}
-                category={item.category}
               />
             ))}
         </S.List>

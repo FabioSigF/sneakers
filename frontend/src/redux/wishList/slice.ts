@@ -1,24 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { selectProductsTotalPrice } from "../cart/selectors";
+import { toast } from "react-toastify";
 
 interface StateProps {
   products: Product[];
 }
 
-interface Photo {
-  id: number;
-  photo_link: string;
-}
-
 export interface Product {
   title: string;
   price: number;
-  photo: Photo;
+  promotion: number;
   id: number;
 }
 
 const products =
-  localStorage.getItem("wish_list_products") !== null 
+  localStorage.getItem("wish_list_products") !== null
     ? JSON.parse(localStorage.getItem("wish_list_products") || "")
     : [];
 
@@ -39,20 +34,26 @@ export const WishListSlice = createSlice({
         state.products.push(action.payload);
       }
 
-      localStorage.setItem('wish_list_products', JSON.stringify(state.products.map((item) => item)))
+      localStorage.setItem(
+        "wish_list_products",
+        JSON.stringify(state.products.map((item) => item))
+      );
+      toast.success("Produto adicionado à Lista de Desejos!")
       return;
     },
     removeProduct: (state, action) => {
       state.products = state.products.filter(
-        (product) => product.id !== action.payload.id
+        (product) => product.id !== action.payload
       );
+      localStorage.setItem(
+        "wish_list_products",
+        JSON.stringify(state.products.map((item) => item))
+      );
+      toast.success("Produto removido da Lista de Desejos!")
     },
   },
 });
 
-export const {
-  addProduct,
-  removeProduct,
-} = WishListSlice.actions;
+export const { addProduct, removeProduct } = WishListSlice.actions;
 
 export default WishListSlice.reducer;
