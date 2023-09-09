@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Hero from "../../components/Hero";
 import * as S from "./styles";
-import Products from "../../components/Products";
+import { Products } from "../../components/Products";
 import axios from "axios";
 import ShopAdvertise from "../../components/ShopAdvertise";
 
@@ -21,6 +21,8 @@ import displayBrands06 from "../../images/display/m-6_150x.png";
 import displayPolicy01 from "../../images/display/policy/p-10_200x.png";
 import displayPolicy02 from "../../images/display/policy/p-8_281c9970-8c95-4fd5-8905-02fb0785a530_200x.png";
 import displayPolicy03 from "../../images/display/policy/p-12_200x.png";
+import Button from "../../components/Button";
+import Container from "../../components/Container";
 
 type Props = {};
 
@@ -107,7 +109,18 @@ const Home = (props: Props) => {
     <S.Wrapper>
       <Hero />
       <DisplayBar cardsData={displayBrands} slide />
-      {products && <Products title="Recommended for you" list={products} />}
+      <S.Products>
+        <Container>
+          {products && <Products title="Recommended for you" list={products} />}
+          <S.Button>
+            <Button
+              title="View all product"
+              onClick={() => console.log("Clicou")}
+              link="/products"
+            />
+          </S.Button>
+        </Container>
+      </S.Products>
       <S.Advertise>
         <ShopAdvertise
           title="Running Shoes"

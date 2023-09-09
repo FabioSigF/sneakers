@@ -100,6 +100,11 @@ export const PageTitleContainer = styled.div<{ textLeft?: boolean }>`
   }
 `;
 
+export const PageContainer = styled.div `
+  padding-top: ${height.section};
+  padding-bottom: ${height.section};
+`
+
 export const GlobalStyle = createGlobalStyle`
   * {
     padding: 0;

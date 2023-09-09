@@ -9,7 +9,7 @@ import { selectProductsCount } from "../../redux/wishList/selectors";
 import { Product } from "../../redux/wishList/slice";
 
 //Components
-import { PageTitleContainer } from "../../globalStyle";
+import { PageContainer, PageTitleContainer } from "../../globalStyle";
 import Container from "../../components/Container";
 import CardProduct from "../../components/CardProduct";
 import { List } from "../../components/Products/styles";
@@ -22,7 +22,7 @@ const Wishlist = (props: Props) => {
   const productsCounter: number = useAppSelector(selectProductsCount);
 
   return (
-    <S.Wrapper>
+    <PageContainer>
       <Container>
         <PageTitleContainer>
           <h2>WishList</h2>
@@ -51,7 +51,7 @@ const Wishlist = (props: Props) => {
           </S.TextListEmpty>
         )}
       </Container>
-    </S.Wrapper>
+    </PageContainer>
   );
 };
 

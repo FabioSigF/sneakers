@@ -20,6 +20,7 @@ import Cart from "./components/Sidebar/Cart";
 import Search from "./pages/Search";
 import ToastProvider from "./providers/ToastProvider";
 import Wishlist from "./pages/Wishlist";
+import Products from "./pages/Products";
 
 type Props = {};
 
@@ -51,6 +52,7 @@ const App = (props: Props) => {
           <Route index path="/" element={<Home />} />
           <Route index path="/search" element={<Search />} />
           <Route index path="/products/:id" element={<Product />} />
+          <Route index path="/products/" element={<Products />} />
           <Route index path="/wishList" element={<Wishlist />} />
         </Routes>
       </div>

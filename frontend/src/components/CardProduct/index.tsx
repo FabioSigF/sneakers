@@ -133,12 +133,6 @@ const CardProduct = ({ id }: Props) => {
                 <AsideButton Icon={IoImagesOutline} title="Quick view" />
               </div>
             </S.SideButtons>
-            <S.AddButtonContainer className="card_product__addButton">
-              <AddButton
-                onClick={() => handleAddToCart(id)}
-                title="Quick Add"
-              />
-            </S.AddButtonContainer>
           </S.ImageContainer>
           <S.Description>
             <S.Title onClick={() => handleOnClick(id)}>
