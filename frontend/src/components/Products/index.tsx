@@ -1,6 +1,4 @@
-import React from "react";
 import * as S from "./styles";
-import Container from "../Container";
 import CardProduct from "../CardProduct";
 import { SectionTitle } from "../../globalStyle";
 
