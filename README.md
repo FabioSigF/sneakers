@@ -15,8 +15,10 @@ Para desenvolver o Front-End do projeto, utilizei:
 - Axios: manipulação de API;
 - React Hook Form e Zod: validação de formulários;
 - Jest: testes;
+
 Estilos:
 - Styled Components: personalização de estilos dos componentes;
+  
 BackEnd:
 - NodeJS e Express: desenvolvimento da API;
 - BCrypt: encriptação de dados do usuário;
