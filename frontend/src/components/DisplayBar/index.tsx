@@ -38,8 +38,8 @@ function DisplayBar({ cardsData, slide }: Props) {
               modules={[Autoplay]}
               className="mySwiper"
             >
-              {cardsData.map((item) => (
-                <SwiperSlide>
+              {cardsData.map((item, key) => (
+                <SwiperSlide key={key}>
                   <S.Item>
                     <DisplayItem cardData={item} />
                   </S.Item>
@@ -48,8 +48,8 @@ function DisplayBar({ cardsData, slide }: Props) {
             </Swiper>
           ) : (
             <>
-              {cardsData.map((item) => (
-                <S.Item>
+              {cardsData.map((item, key) => (
+                <S.Item key={key}>
                   <DisplayItem cardData={item} />
                 </S.Item>
               ))}

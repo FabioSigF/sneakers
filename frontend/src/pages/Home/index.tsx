@@ -108,7 +108,7 @@ const Home = (props: Props) => {
   return (
     <S.Wrapper>
       <Hero />
-      <DisplayBar cardsData={displayBrands} slide />
+      {/* <DisplayBar cardsData={displayBrands} slide /> */}
       <S.Products>
         <Container>
           {products && <Products title="Recommended for you" list={products} />}

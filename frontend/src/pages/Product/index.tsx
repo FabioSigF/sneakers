@@ -106,11 +106,12 @@ const Product = (props: Props) => {
 
   //Pegar informaçõs do produto do DB
   const getProduct = async () => {
-    await axios
-      .get(`http://localhost:8800/products/item/${id}`)
-      .then((response) => {
-        setProduct(response.data);
-      });
+    try {
+      const response = await axios.get(`http://localhost:8800/products/item/${id}`);
+      setProduct(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar o produto: ", error);
+    }
   };
 
   const handleChooseSize = (e: React.MouseEvent<HTMLButtonElement>) => {

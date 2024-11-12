@@ -1,9 +1,13 @@
 import mysql from "mysql";
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "password",
+  password: process.env.DB_PASSWORD,
   database: "sneakers"
 });
 //In case of PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR
